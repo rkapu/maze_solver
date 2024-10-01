@@ -1,3 +1,6 @@
 #!/usr/bin/env python
 
-print("maze solver")
+from src.window import Window
+
+win = Window(800, 600)
+win.wait_for_close()
