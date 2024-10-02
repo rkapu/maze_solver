@@ -24,6 +24,26 @@ class Cell:
             if line is not None:
                 self.__window.draw_line(line)
 
+    def draw_move(self, to_cell, undo=False):
+        fill_color = "gray" if undo else "red"
+        self.__window.draw_line(
+            Line(
+                self.center_point(),
+                to_cell.center_point(),
+            ),
+            fill_color
+        )
+
+
+    def center_point(self):
+        if not self.__start_point or not self.__end_point:
+            raise ValueError("start and end points does not exist")
+
+        center_x = (self.__start_point.x + self.__end_point.x) / 2
+        center_y = (self.__start_point.y + self.__end_point.y) / 2
+
+        return Point(center_x, center_y)
+
     def __left_wall_line(self):
         if self.has_left_wall:
             return Line(
