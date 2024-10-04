@@ -2,7 +2,7 @@ import time
 from src.cell import *
 
 class Maze:
-    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, window):
+    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, window=None):
         self.x1 = x1
         self.y1 = y1
         self.num_rows = num_rows
@@ -10,7 +10,7 @@ class Maze:
         self.cell_size_x = cell_size_x
         self.cell_size_y = cell_size_y
         self.window = window
-        self.__cells = []
+        self._cells = []
         self.__create_cells()
 
     def __create_cells(self):
@@ -18,7 +18,8 @@ class Maze:
             col = []
             for _ in range(self.num_rows):
                 col.append(Cell(self.window))
-            self.__cells.append(col)
+            if len(col) > 0:
+                self._cells.append(col)
 
         for i in range(self.num_cols):
             for j in range(self.num_rows):
@@ -32,7 +33,7 @@ class Maze:
         cell_start_y = self.y1 + (self.cell_size_x * j)
         cell_end_x = cell_start_x + self.cell_size_x
         cell_end_y = cell_start_y + self.cell_size_y
-        self.__cells[i][j].draw(
+        self._cells[i][j].draw(
             Point(cell_start_x, cell_start_y),
             Point(cell_end_x, cell_end_y)
         )

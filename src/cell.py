@@ -1,7 +1,7 @@
 from src.line import *
 
 class Cell:
-    def __init__(self, window):
+    def __init__(self, window=None):
         self.has_left_wall = True
         self.has_top_wall = True
         self.has_right_wall = True
@@ -11,6 +11,9 @@ class Cell:
         self.__end_point = None
 
     def draw(self, start_point, end_point):
+        if self.__window is None:
+            return
+
         self.__start_point = start_point
         self.__end_point = end_point
 
@@ -25,6 +28,8 @@ class Cell:
                 self.__window.draw_line(line)
 
     def draw_move(self, to_cell, undo=False):
+        if self.__window is None:
+            return
         fill_color = "gray" if undo else "red"
         self.__window.draw_line(
             Line(
