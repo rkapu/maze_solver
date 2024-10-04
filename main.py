@@ -3,15 +3,10 @@
 from src.window import *
 from src.line import *
 from src.cell import *
+from src.maze import * 
 
-win = Window(800, 600)
-cell = Cell(win)
-cell.has_right_wall = False
-cell.draw(Point(50,50), Point(100,100))
+window = Window(800, 600)
 
-cell2 = Cell(win)
-cell2.has_left_wall = False
-cell2.draw(Point(100, 50), Point(150, 100))
+Maze(50, 50, 5, 3, 50, 50, window)
 
-cell.draw_move(cell2)
-win.wait_for_close()
+window.wait_for_close()
