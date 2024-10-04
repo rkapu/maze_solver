@@ -17,15 +17,10 @@ class Cell:
         self.__start_point = start_point
         self.__end_point = end_point
 
-        lines = [
-            self.__left_wall_line(),
-            self.__top_wall_line(),
-            self.__right_wall_line(),
-            self.__bottom_wall_line()
-        ]
-        for line in lines:
-            if line is not None:
-                self.__window.draw_line(line)
+        self.__left_wall_line()
+        self.__top_wall_line()
+        self.__right_wall_line()
+        self.__bottom_wall_line()
 
     def draw_move(self, to_cell, undo=False):
         if self.__window is None:
@@ -50,29 +45,40 @@ class Cell:
         return Point(center_x, center_y)
 
     def __left_wall_line(self):
-        if self.has_left_wall:
-            return Line(
+        self.__window.draw_line(
+            Line(
                 self.__start_point,
                 Point(self.__start_point.x, self.__end_point.y)
-            )
+            ),
+            self.__get_wall_color(self.has_left_wall)
+        )
 
     def __top_wall_line(self):
-        if self.has_top_wall:
-            return Line(
+        self.__window.draw_line(
+            Line(
                 self.__start_point,
                 Point(self.__end_point.x, self.__start_point.y)
-            )
+            ),
+            self.__get_wall_color(self.has_top_wall)
+        )
 
     def __right_wall_line(self):
-        if self.has_right_wall:
-            return Line(
+        self.__window.draw_line(
+            Line(
                 Point(self.__end_point.x, self.__start_point.y),
                 self.__end_point
-            )
+            ),
+            self.__get_wall_color(self.has_right_wall)
+        )
 
     def __bottom_wall_line(self):
-        if self.has_bottom_wall:
-            return Line(
+        self.__window.draw_line(
+            Line(
                 self.__end_point,
                 Point(self.__start_point.x, self.__end_point.y)
-            )
+            ),
+            self.__get_wall_color(self.has_bottom_wall)
+        )
+
+    def __get_wall_color(self, visible):
+        return "black" if visible else "white"
