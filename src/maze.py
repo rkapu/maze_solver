@@ -23,6 +23,40 @@ class Maze:
             self.__break_walls_r(0, 0)
             self.__reset_cells_visited()
 
+    def solve(self):
+        return self.__solve_r(0, 0)
+
+    def __solve_r(self, i, j):
+        self.__animate()
+        self._cells[i][j].visited = True
+
+        # end cell
+        if i == self.num_cols-1 and j == self.num_rows-1:
+            return True
+
+        directions = []
+
+        # left cell
+        if i > 0 and (not self._cells[i-1][j].visited and not self._cells[i][j].has_left_wall):
+            directions.append((i-1, j))
+        # right cell
+        if i < self.num_cols - 1 and (not self._cells[i+1][j].visited and not self._cells[i][j].has_right_wall):
+            directions.append((i+1, j))
+        #top cell
+        if j > 0 and (not self._cells[i][j-1].visited and not self._cells[i][j].has_top_wall):
+            directions.append((i, j-1))
+        # bottom cell
+        if j < self.num_rows - 1 and (not self._cells[i][j+1].visited and not self._cells[i][j].has_bottom_wall):
+            directions.append((i, j+1))
+
+        for dir in directions:
+            self._cells[i][j].draw_move(self._cells[dir[0]][dir[1]])
+            if self.__solve_r(dir[0], dir[1]):
+                return True
+            self._cells[i][j].draw_move(self._cells[dir[0]][dir[1]], True)
+
+        return False
+
     def __create_cells(self):
         for _ in range(self.num_cols):
             col = []
