@@ -43,5 +43,23 @@ class Tests(unittest.TestCase):
             False
         )
 
+    def test_cells_reset_visited_state_after_breaking_walls(self):
+        m1 = Maze(0, 0, 12, 10, 10, 10)
+        cells_visited_states = []
+
+        for rows in m1._cells:
+            for cell in rows:
+                cells_visited_states.append(cell.visited)
+
+        self.assertEqual(
+            len(cells_visited_states),
+            12*10
+        )
+
+        self.assertEqual(
+            set(cells_visited_states),
+            {False,}
+        )
+
 if __name__ == "__main__":
     unittest.main()

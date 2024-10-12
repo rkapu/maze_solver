@@ -21,6 +21,7 @@ class Maze:
             self.__create_cells()
             self.__break_entrance_and_exit()
             self.__break_walls_r(0, 0)
+            self.__reset_cells_visited()
 
     def __create_cells(self):
         for _ in range(self.num_cols):
@@ -33,6 +34,11 @@ class Maze:
         for i in range(self.num_cols):
             for j in range(self.num_rows):
                 self.__draw_cell(i, j)
+
+    def __reset_cells_visited(self):
+        for rows in self._cells:
+            for cell in rows:
+                cell.visited = False
 
     def __draw_cell(self, i, j):
         if self.window is None:
