@@ -9,6 +9,7 @@ class Cell:
         self.__window = window
         self.__start_point = None
         self.__end_point = None
+        self.visited = False
 
     def draw(self, start_point, end_point):
         if self.__window is None:
